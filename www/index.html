@@ -76,7 +76,6 @@
         // ハイスコア表示
         JankenScore.order(key, true).fetch()
         .then(function(result){
-          high_score = result.get(key);
           $("#highscore").html("ハイスコア：" + high_score + "連勝");
         })
         .catch(function(error){
@@ -106,8 +105,9 @@
           });
 
           // スコア記録
+          let name = $("#name").val();
           db = new JankenScore();
-          db.set(key, win_num).save();
+          db.set(key, win_num + " , " + name).save();
 
           msg += win_num +  "連勝でした。<br>";
         } else {
@@ -119,6 +119,7 @@
         // ニューゲームボタン表示
         $("#newgame").css("display", "inline");
       }
+
 
       // ゲーム初期化
       $(function(){
