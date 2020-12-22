@@ -35,6 +35,7 @@
       let ncmb = new NCMB(appKey, clientKey);
       let JankenScore = ncmb.DataStore("JankenScore");
       const key = "score";
+      const key2 = "player";
 
       // ハイスコア
       let high_score = 0;
@@ -104,10 +105,13 @@
           .catch(function(error){
           });
 
-          // スコア記録
+          // スコア・名前記録
           let name = $("#name").val();
           db = new JankenScore();
-          db.set(key, win_num + " , " + name).save();
+          db.set(key2, name);
+          db.set(key, win_num);
+          db.save();
+
 
           msg += win_num +  "連勝でした。<br>";
         } else {
