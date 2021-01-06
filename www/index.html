@@ -39,6 +39,7 @@
 
       // ハイスコア
       let high_score = 0;
+      let highscore_player;
 
       function gu() {
         janken(hand_gu);
@@ -77,11 +78,16 @@
         // ハイスコア表示
         JankenScore.order(key, true).fetch()
         .then(function(result){
-          $("#highscore").html("ハイスコア：" + high_score + "連勝");
+          high_score = result.get(key);
+          highscore_player = result.get(key2);
+          $("#highscore").html("ハイスコア：" + highscore_player +"さん,  " + high_score + "連勝");
         })
         .catch(function(error){
-          $("#highscore").html("ハイスコア：" + high_score + "連勝");
+          high_score = result.get(key);
+          highscore_player = result.get(key2);
+          $("#highscore").html("ハイスコア：" + highscore_player +"さん,  " + high_score + "連勝");
         });
+
   
         win_num = 0;
         // ハンドボタン表示
@@ -98,6 +104,7 @@
           JankenScore.order(key, true).fetch()
           .then(function(result){
             high_score = result.get(key);
+            highscore_player = result.get(key2);
             if(win_num > high_score) {
               $("#result").html("ハイスコア更新!");
             }
